@@ -88,7 +88,6 @@ app.post('/login', async function(req, res) {
 		apiCreds.password = req.body.password
 		hbsContent.isLogged = true
 		object.results.forEach(element => {
-			console.log(element)
 			if(element.id == req.body.id) {
 				hbsContent.username = element.name	
 			}	
@@ -146,13 +145,15 @@ app.get('/downloadOutputCvs', (req, res) => {
 	}		
 })
 
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, "127.0.0.1", () => {
 	console.log(`server started at http://localhost:${port}`) 
 })
 
 async function mainWrapper() {
 	for(i=0; i<input.length; i++) {
+		console.log(input)
                 let buffer = input[i]
+		console.log(buffer.control)
 		eventsEmitter.emit("progress", `progress: ${i+1}/${input.length}`)	
                 let number = await handleResponseControl(buffer, await queryApiForControl(buffer.control)
                         .catch((error) => { console.log(error) })
@@ -202,7 +203,7 @@ function queryApiForControl(control) {
                                 "Accept": "application/json"
                         }
                 }
-                //console.log(options)
+                console.log(options)
                 function callback(error, response) { 
                         if (error) reject(error)
                         //console.log(response.body)
@@ -249,6 +250,7 @@ function checkRefundNumberForControlNumber(control) {
 }
 
 function handleResponseControl(buffer, responseControl) {
+	console.log(buffer)
 	return new Promise(async function(resolveControl) {
        		 let controlData = JSON.parse(responseControl.body)
        		 if (responseControl.statusCode == 200 && controlData.count == 1 && controlData.results[0].status == "completed") {
@@ -258,6 +260,8 @@ function handleResponseControl(buffer, responseControl) {
 				 })
 				.catch((error) => { throw new Error(error) })
        		 } else if (controlData.count != 1) {
+			 console.log("controlData", controlData)
+			 console.log("buffer.control", buffer.control)
        		         handleMultipleRecordsForControl()
        		 } else {
        		         eventsEmitter.emit('log', `${buffer.control} wont refund, for unrecognized reason ${relatedOperations}`)
@@ -267,7 +271,7 @@ function handleResponseControl(buffer, responseControl) {
        		         return new Promise(async function(resolve, reject) {
 
        		                 eventsEmitter.emit('log', `${buffer.control} will be refunded`)
-       		                 let refundOptions = { amount: controlData.results[0].amount, description: buffer.description, control: buffer.control }
+       		                 let refundOptions = { amount: buffer.amount, description: buffer.description, control: buffer.control }
        		                 let responseRefund = await refundPayment(controlData.results[0].number, refundOptions)
        		                         .catch((error) => { reject(error) })
        		                 if (responseRefund.statusCode == 200) {
