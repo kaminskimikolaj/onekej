@@ -1,0 +1,27 @@
+{
+  "name": "onekej",
+  "version": "1.0.0",
+  "description": "",
+  "main": "interface.production.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node interface.js",
+    "compilewin": "nexe --recourse './views/**/*' -o bin.exe -t win32-x86-10.13.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "csv-parser": "^2.3.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "json2csv": "^5.0.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nexe": "^3.3.7",
+    "request": "^2.88.2"
+  }
+}
