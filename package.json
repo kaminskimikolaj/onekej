@@ -7,8 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node interface.js",
+    "test": "nodemon interface.sandbox.js",
+    "start": "nodemon interface.production.js",
+    "exportProduction": "node exportProduction.js",
+    "exportSandbox": "node exportSandbox.js",
     "compilewin": "nexe --recourse './views/**/*' -o bin.exe -t win32-x86-10.13.0"
   },
   "author": "",
