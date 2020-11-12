@@ -151,9 +151,7 @@ app.listen(port, "127.0.0.1", () => {
 
 async function mainWrapper() {
 	for(i=0; i<input.length; i++) {
-		console.log(input)
                 let buffer = input[i]
-		console.log(buffer.control)
 		eventsEmitter.emit("progress", `progress: ${i+1}/${input.length}`)	
                 let number = await handleResponseControl(buffer, await queryApiForControl(buffer.control)
                         .catch((error) => { console.log(error) })
@@ -203,10 +201,8 @@ function queryApiForControl(control) {
                                 "Accept": "application/json"
                         }
                 }
-                console.log(options)
                 function callback(error, response) { 
                         if (error) reject(error)
-                        //console.log(response.body)
                         resolve(response)
                 }
                 request.get(options, callback).auth(apiCreds.username, apiCreds.password)
@@ -228,11 +224,8 @@ function refundPayment(paymentNumber, refundOptions) {
                         json: true
                 }
 
-                //console.log(options)
                 function callback(error, response) { 
                         if (error) reject(error)
-                        //console.log(response.request.body)
-                        //console.log(response.body)
                         resolve(response)
                 }
                 request.post(options, callback).auth(apiCreds.username, apiCreds.password)
@@ -250,7 +243,6 @@ function checkRefundNumberForControlNumber(control) {
 }
 
 function handleResponseControl(buffer, responseControl) {
-	console.log(buffer)
 	return new Promise(async function(resolveControl) {
        		 let controlData = JSON.parse(responseControl.body)
        		 if (responseControl.statusCode == 200 && controlData.count == 1 && controlData.results[0].status == "completed") {
@@ -260,8 +252,6 @@ function handleResponseControl(buffer, responseControl) {
 				 })
 				.catch((error) => { throw new Error(error) })
        		 } else if (controlData.count != 1) {
-			 console.log("controlData", controlData)
-			 console.log("buffer.control", buffer.control)
        		         handleMultipleRecordsForControl()
        		 } else {
        		         eventsEmitter.emit('log', `${buffer.control} wont refund, for unrecognized reason ${relatedOperations}`)
@@ -306,8 +296,6 @@ function handleResponseControl(buffer, responseControl) {
        		                                 else return false
        		                         })
        		                         let message = `${buffer.control} for transaction with number ${paymentRecord.number} found `
-//     		                           if (relatedOperations.length != 0) message += `refund/refunds: ${require('util').inspect(relatedOperations, false, null, true)}`
-					 console.log(relatedOperations)
        		                         if (relatedOperations.length != 0) message += `refund/refunds: ${JSON.stringify(relatedOperations)}`
        		                         else message += `no refunds`
        		                         eventsEmitter.emit('log', (message))
