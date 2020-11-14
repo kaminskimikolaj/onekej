@@ -29,13 +29,13 @@
 	<form action="/start" method="post">
 		<input id="startbutton" type="submit" value="start" disabled="disabled"/> 
 	</form><br>
-	
+
 	<form action="/downloadLogs" method="GET">
-		<input class="afterFinished" type="submit" value="download logs" disabled="disabled"/>
+		<input class="afterFinished" type="submit" value="download logs"/>
 	</form><br>	
 	
 	<form action="/downloadOutputCvs" method="GET">
-		<input class="afterFinished" type="submit" value="download output csv" disabled="disabled"/>
+		<input class="afterFinished" type="submit" value="download output csv"/>
 	</form><br>	
 	
 	{{# if data.started}}
@@ -71,6 +71,6 @@
 	{{/if}}
 
 	{{#if data.finished}}
-		document.getElementsByClass("afterFinished").forEach(element => element.removeAttribute("disabled"))	
+		//document.getElementsByClass("afterFinished").forEach(element => element.removeAttribute("disabled"))	
 	{{/if}}
 </script>

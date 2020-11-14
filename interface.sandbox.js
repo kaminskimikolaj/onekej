@@ -257,6 +257,7 @@ function handleResponseControl(buffer, responseControl) {
        		         eventsEmitter.emit('log', `${buffer.control} wont refund, for unrecognized reason ${relatedOperations}`)
        		 }
 		 resolveControl()
+
        		 async function handleRefund() {
        		         return new Promise(async function(resolve, reject) {
 

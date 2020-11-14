@@ -9,8 +9,8 @@
   "scripts": {
     "test": "nodemon interface.sandbox.js",
     "start": "nodemon interface.production.js",
-    "exportProduction": "node exportProduction.js",
-    "exportSandbox": "node exportSandbox.js",
+    "exportProduction": "node scripts/exportProduction.js",
+    "exportSandbox": "node scripts/exportSandbox.js",
     "compilewin": "nexe --recourse './views/**/*' -o bin.exe -t win32-x86-10.13.0"
   },
   "author": "",
