@@ -2,7 +2,7 @@
   "name": "onekej",
   "version": "1.0.0",
   "description": "",
-  "main": "interface.production.js",
+  "main": "interface.js",
   "directories": {
     "test": "test"
   },
@@ -10,7 +10,7 @@
     "start": "nodemon interface.js",
     "exportProduction": "node scripts/exportProduction.js",
     "exportSandbox": "node scripts/exportSandbox.js",
-    "compilewin": "nexe --recourse './views/**/*' -o bin.exe -t win32-x86-10.13.0"
+    "compilewin": "nexe -r 'views/main.handlebars' -r 'views/login.handlebars' -r 'views/layouts/index.handlebars' -o bin.exe -t win32-x86-10.13.0"
   },
   "author": "",
   "license": "ISC",
