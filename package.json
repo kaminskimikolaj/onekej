@@ -7,8 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "nodemon interface.sandbox.js",
-    "start": "nodemon interface.production.js",
+    "start": "nodemon interface.js",
     "exportProduction": "node scripts/exportProduction.js",
     "exportSandbox": "node scripts/exportSandbox.js",
     "compilewin": "nexe --recourse './views/**/*' -o bin.exe -t win32-x86-10.13.0"
@@ -24,6 +23,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "nexe": "^3.3.7",
+    "nodemon": "^2.0.6",
     "request": "^2.88.2"
   }
 }
