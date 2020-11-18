@@ -53,7 +53,6 @@
 	{{#if data.started}}
 		var list = document.getElementById("messagesList")
 		let sourceLogs = new EventSource('/events').addEventListener('message', message => {
-			console.log(event.data)
 			if(event.data == "finished") {
 				let elements = document.getElementsByClassName("afterFinished")		
 				let i = 0
@@ -66,7 +65,6 @@
 		        list.appendChild(entry);
 		});
 		let sourceProgress = new EventSource('/progressEvents').addEventListener('message', message => {
-			console.log(event.data)
 			document.getElementById("progress").innerHTML = event.data	
 		})
 	{{/if}}
