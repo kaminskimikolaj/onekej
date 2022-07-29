@@ -5,3 +5,4 @@ compile*
 views
 uploads
 *.swp
+.DS_Store
